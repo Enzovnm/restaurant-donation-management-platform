@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 public record RestaurantResponseDTO(
+
+        long id,
+
         String name,
 
         String email,

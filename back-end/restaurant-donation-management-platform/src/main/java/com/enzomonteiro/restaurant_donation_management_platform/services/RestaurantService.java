@@ -1,6 +1,7 @@
 package com.enzomonteiro.restaurant_donation_management_platform.services;
 
 import com.enzomonteiro.restaurant_donation_management_platform.dtos.RestaurantResponseDTO;
+import com.enzomonteiro.restaurant_donation_management_platform.dtos.RestaurantSaveDTO;
 import com.enzomonteiro.restaurant_donation_management_platform.entities.Restaurant;
 import com.enzomonteiro.restaurant_donation_management_platform.mappers.RestaurantMapper;
 import com.enzomonteiro.restaurant_donation_management_platform.repositories.RestaurantRepository;
@@ -14,13 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantService {
 
-    private final Restaurant restaurant;
     private final RestaurantRepository restaurantRepository;
 
     @Transactional(readOnly = true)
     public List<RestaurantResponseDTO> findAll() {
         var result = restaurantRepository.findAll();
-        return result.stream().map(RestaurantMapper.INSTANCE::restaurantToDto).toList();
+        return result.stream()
+                .map(RestaurantMapper.restaurantMapper::restaurantToDto)
+                .toList();
     }
 
+    /* @Transactional
+    public RestaurantResponseDTO save(RestaurantSaveDTO); */
 }
+

@@ -8,7 +8,8 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface RestaurantMapper {
-    RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
+
+    RestaurantMapper restaurantMapper = Mappers.getMapper(RestaurantMapper.class);
 
     RestaurantResponseDTO restaurantToDto(Restaurant restaurant);
 }

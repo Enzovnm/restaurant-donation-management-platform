@@ -1,12 +1,11 @@
 package com.enzomonteiro.restaurant_donation_management_platform.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
+@Table(name = "restaurants")
 public class Restaurant {
 
     @Id()
@@ -22,6 +21,7 @@ public class Restaurant {
     @Column(unique = true, columnDefinition = "char(14)")
     private String cnpj;
 
+    @Column
     private String picture;
 
 }
