@@ -25,7 +25,11 @@ public class RestaurantService {
                 .toList();
     }
 
-    /* @Transactional
-    public RestaurantResponseDTO save(RestaurantSaveDTO); */
+    @Transactional
+    public RestaurantResponseDTO save(RestaurantSaveDTO restaurant){
+
+        var result = restaurantRepository.save(RestaurantMapper.restaurantMapper.restaurantSaveDTOToRestaurant(restaurant));
+        return RestaurantMapper.restaurantMapper.restaurantToDto(result);
+    }
 }
 

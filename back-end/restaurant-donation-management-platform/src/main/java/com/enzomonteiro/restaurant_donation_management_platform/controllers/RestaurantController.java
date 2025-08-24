@@ -1,13 +1,13 @@
 package com.enzomonteiro.restaurant_donation_management_platform.controllers;
 
 import com.enzomonteiro.restaurant_donation_management_platform.dtos.RestaurantResponseDTO;
+import com.enzomonteiro.restaurant_donation_management_platform.dtos.RestaurantSaveDTO;
 import com.enzomonteiro.restaurant_donation_management_platform.services.RestaurantService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,9 +23,10 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantService.findAll());
     }
 
+
     @PostMapping
-    public ResponseEntity<RestaurantResponseDTO> save(){
-        return ResponseEntity.ok(new RestaurantResponseDTO(1,"enzo", "teste@email.com", "2132131", "dsds"));
+    public ResponseEntity<RestaurantResponseDTO> save(@Valid @RequestBody RestaurantSaveDTO restaurant){
+        return new ResponseEntity<RestaurantResponseDTO>(restaurantService.save(restaurant), HttpStatus.CREATED);
     }
 
 }
