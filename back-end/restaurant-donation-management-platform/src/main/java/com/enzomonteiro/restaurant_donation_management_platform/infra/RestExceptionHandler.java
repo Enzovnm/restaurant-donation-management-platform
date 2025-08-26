@@ -2,6 +2,7 @@ package com.enzomonteiro.restaurant_donation_management_platform.infra;
 
 import com.enzomonteiro.restaurant_donation_management_platform.exceptions.DefaultError;
 import com.enzomonteiro.restaurant_donation_management_platform.exceptions.EntityConflictException;
+import com.enzomonteiro.restaurant_donation_management_platform.exceptions.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(err);
     }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<DefaultError> handleEntityNotFoundException(EntityNotFoundException e, HttpServletRequest request){
+
+        DefaultError err = new DefaultError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(HttpStatus.NOT_FOUND.value());
+        err.setError("Resource not found");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(err);
+    }
+
 
 }
