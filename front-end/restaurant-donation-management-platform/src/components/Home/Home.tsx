@@ -1,6 +1,19 @@
+import { useState } from "react";
 import imgDonate from "../../assets/donate-image.png";
+import { CreateDonation } from "../CreateDonation";
 
 export const Home = () => {
+  const [isCreateDonationModalOpen, setIsCreateDonationModalOpen] =
+    useState<boolean>(false);
+
+  const openCreateDonationModal = () => {
+    setIsCreateDonationModalOpen(true);
+  };
+
+  const closeCreateDonationModal = () => {
+    setIsCreateDonationModalOpen(false);
+  };
+
   return (
     <main className="flex w-screen h-hero px-4 md:px-0 bg-[#f6f6f6]">
       <div className="w-full h-full flex flex-col md:flex-row  items-center justify-center md:justify-between">
@@ -12,7 +25,10 @@ export const Home = () => {
             Uma chance para todos aqueles que lutam contra a fome
           </h2>
           <h3 className="mt-4">Doe uma marmita. Seja solidário!</h3>
-          <button className="bg-[#e94911] text-white  px-8 py-4 rounded-full mt-4 cursor-pointer">
+          <button
+            onClick={openCreateDonationModal}
+            className="bg-[#e94911] text-white  px-8 py-4 rounded-full mt-4 cursor-pointer"
+          >
             FAÇA UMA DOAÇÃO
           </button>
         </div>
@@ -20,6 +36,10 @@ export const Home = () => {
           <img className="md:w-11/12 w-full" src={imgDonate} />
         </div>
       </div>
+
+      {isCreateDonationModalOpen && (
+        <CreateDonation closeCreateDonationModal={closeCreateDonationModal} />
+      )}
     </main>
   );
 };
