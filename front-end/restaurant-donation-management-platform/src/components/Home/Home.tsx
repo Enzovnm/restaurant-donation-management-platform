@@ -1,18 +1,19 @@
-import { useState } from "react";
 import imgDonate from "../../assets/donate-image.png";
-import { CreateDonation } from "../CreateDonation";
+import { Outlet, useNavigate } from "react-router";
 
 export const Home = () => {
-  const [isCreateDonationModalOpen, setIsCreateDonationModalOpen] =
-    useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const openCreateDonationModal = () => {
-    setIsCreateDonationModalOpen(true);
-  };
+  // const [isCreateDonationModalOpen, setIsCreateDonationModalOpen] =
+  //   useState<boolean>(false);
 
-  const closeCreateDonationModal = () => {
-    setIsCreateDonationModalOpen(false);
-  };
+  // const openCreateDonationModal = () => {
+  //   setIsCreateDonationModalOpen(true);
+  // };
+
+  // const closeCreateDonationModal = () => {
+  //   setIsCreateDonationModalOpen(false);
+  // };
 
   return (
     <main className="flex w-screen h-hero px-4 md:px-0 bg-[#f6f6f6]">
@@ -26,8 +27,8 @@ export const Home = () => {
           </h2>
           <h3 className="mt-4">Doe uma marmita. Seja solidário!</h3>
           <button
-            onClick={openCreateDonationModal}
-            className="bg-[#e94911] text-white  px-8 py-4 rounded-full mt-4 cursor-pointer"
+            onClick={() => navigate("/create-donation")}
+            className="bg-[#e94911] text-white px-8 py-4 rounded-full mt-4 cursor-pointer"
           >
             FAÇA UMA DOAÇÃO
           </button>
@@ -37,9 +38,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {isCreateDonationModalOpen && (
-        <CreateDonation closeCreateDonationModal={closeCreateDonationModal} />
-      )}
+      <Outlet />
     </main>
   );
 };
