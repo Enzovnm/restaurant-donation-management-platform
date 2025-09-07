@@ -2,6 +2,8 @@ import { z } from "zod";
 import { donationSchema } from "../donation-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
+import { useDonationStore } from "../../../stores/DonationStore";
 
 const createRestaurantSchema = donationSchema.pick({
   restaurantName: true,
@@ -19,13 +21,24 @@ export const CreateRestaurant = () => {
     formState: { errors },
   } = useForm<CreateRestaurantSchema>({
     resolver: zodResolver(createRestaurantSchema),
+    defaultValues: useDonationStore.getState(),
   });
 
-  const handleForm = (data: CreateRestaurantSchema) => {
-    console.log(data);
-  };
+  const mealName = useDonationStore((state) => state.mealName);
+  const mealDescription = useDonationStore((state) => state.mealDescription);
 
-  console.log(errors);
+  const setData = useDonationStore((state) => state.setData);
+
+  const navigate = useNavigate();
+
+  const handleForm = (data: CreateRestaurantSchema) => {
+    setData({
+      ...data,
+      mealName,
+      mealDescription,
+    });
+    navigate("/create-donation/meal");
+  };
 
   return (
     <div className="w-full">
@@ -34,33 +47,56 @@ export const CreateRestaurant = () => {
       </div>
       <form className="mt-8" onSubmit={handleSubmit(handleForm)}>
         <div>
-          <label>Nome do restaurante*</label>
+          <label className={`${errors.restaurantName ? "text-red-500" : ""}`}>
+            Nome do restaurante*
+          </label>
           <input
             type="text"
-            className="w-full mt-1 p-3.5 border rounded-md"
+            className={`w-full mt-0.5 p-3.5 border rounded-md outline-none ring-0 ${
+              errors.restaurantName
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                : ""
+            }`}
             placeholder="Digite o nome"
             {...register("restaurantName")}
           />
+          {errors && (
+            <p className="text-red-500">{errors.restaurantName?.message}</p>
+          )}
         </div>
 
         <div className="mt-3">
-          <label>E-mail*</label>
+          <label className={`${errors.email ? "text-red-500" : ""}`}>
+            E-mail*
+          </label>
           <input
             type="email"
-            className="w-full mt-0.5 p-3.5 border rounded-md"
+            className={`w-full mt-0.5 p-3.5 border rounded-md outline-none ring-0 ${
+              errors.email
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                : ""
+            }`}
             placeholder="Digite o e-mail"
             {...register("email")}
           />
+          {errors && <p className="text-red-500">{errors.email?.message}</p>}
         </div>
 
         <div className="mt-3">
-          <label>CNPJ*</label>
+          <label className={`${errors.cnpj ? "text-red-500" : ""}`}>
+            CNPJ*
+          </label>
           <input
             type="text"
-            className="w-full mt-0.5 p-3.5 border rounded-md"
+            className={`w-full mt-0.5 p-3.5 border rounded-md outline-none ring-0 ${
+              errors.cnpj
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                : ""
+            }`}
             placeholder="Digite o CNPJ"
             {...register("cnpj")}
           />
+          {errors && <p className="text-red-500">{errors.cnpj?.message}</p>}
         </div>
 
         <div className="mt-3">
