@@ -3,7 +3,9 @@ package com.enzomonteiro.restaurant_donation_management_platform.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,6 +29,6 @@ public class Restaurant {
     private String picture;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
-    private Set<Meal> meals = new HashSet<>();
+    private List<Meal> meals = new ArrayList<>();
 
 }

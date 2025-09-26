@@ -2,6 +2,7 @@ package com.enzomonteiro.restaurant_donation_management_platform.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 public record RestaurantSaveDTO(
@@ -13,8 +14,9 @@ public record RestaurantSaveDTO(
         String email,
 
         @NotEmpty(message = "The field 'cnpj' must not be empty")
-        @CNPJ(message = "The field 'cnpj' is invalid")
+        @CNPJ(message = "The field 'cnpj' is not valid")
         String cnpj,
 
+        @URL(message = "The field 'picture' is not valid" , protocol = "https")
         String picture
 ) {}

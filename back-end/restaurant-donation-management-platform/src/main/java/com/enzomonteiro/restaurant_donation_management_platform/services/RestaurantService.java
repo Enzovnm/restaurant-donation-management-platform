@@ -17,17 +17,18 @@ import java.util.List;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantMapper restaurantMapper;
 
     @Transactional(readOnly = true)
-    public List<RestaurantResponseDTO> findAll() {
-        var result = restaurantRepository.findAll();
+    public List<RestaurantResponseDTO> findAllWithMeals() {
+        var result = restaurantRepository.findAllWithMeals();
         return result.stream()
-                .map(RestaurantMapper.restaurantMapper::restaurantToDto)
+                .map(restaurantMapper::restaurantToDto)
                 .toList();
     }
 
     @Transactional
-    public RestaurantResponseDTO save(RestaurantSaveDTO restaurant) {
+    public RestaurantResponseDTO upsert(RestaurantSaveDTO restaurant) {
 
         Restaurant restaurantToSave = restaurantRepository.findByEmail(restaurant.email())
                 .map(restaurantFound -> {
@@ -37,7 +38,7 @@ public class RestaurantService {
                     restaurantFound.setCnpj(restaurant.cnpj());
                     return restaurantFound;
                 })
-                .orElse(RestaurantMapper.restaurantMapper.restaurantSaveDTOToRestaurant(restaurant));
+                .orElse(restaurantMapper.restaurantSaveDTOToRestaurant(restaurant));
 
         restaurantRepository.findByCnpj(restaurant.cnpj()).ifPresent(existingCnpj -> {
             if (restaurantToSave.getId() == null || !existingCnpj.getId().equals(restaurantToSave.getId())) {
@@ -47,7 +48,7 @@ public class RestaurantService {
 
         var result = restaurantRepository.save(restaurantToSave);
 
-        return RestaurantMapper.restaurantMapper.restaurantToDto(result);
+        return restaurantMapper.restaurantToDto(result);
     }
 }
 

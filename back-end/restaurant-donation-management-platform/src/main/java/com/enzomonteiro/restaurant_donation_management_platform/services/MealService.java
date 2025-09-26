@@ -21,19 +21,21 @@ public class MealService {
 
     private final RestaurantRepository restaurantRepository;
 
+    private final MealMapper mealMapper;
+
     public List<MealResponseDTO> findAll() {
         var result = mealRepository.findAll();
-        return result.stream().map(MealMapper.mealMapper::mealToDto).toList();
+        return result.stream().map(mealMapper::mealToDto).toList();
     }
 
     public MealResponseDTO save(MealSaveDTO meal) {
         Restaurant restaurant = restaurantRepository.findById(meal.restaurant_id()).orElseThrow(() -> new EntityNotFoundException("Restaurante não encontrado"));
 
-        Meal mealEntity = MealMapper.mealMapper.mealSaveDtoToMeal(meal);
+        Meal mealEntity = mealMapper.mealSaveDtoToMeal(meal);
         mealEntity.setRestaurant(restaurant);
 
         var mealSaved = mealRepository.save(mealEntity);
 
-        return MealMapper.mealMapper.mealToDto(mealSaved);
+        return mealMapper.mealToDto(mealSaved);
     }
 }

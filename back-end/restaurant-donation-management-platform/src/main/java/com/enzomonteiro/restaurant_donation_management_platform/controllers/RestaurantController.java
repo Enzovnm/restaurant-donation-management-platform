@@ -19,14 +19,14 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantResponseDTO>> findAll() {
-        return ResponseEntity.ok(restaurantService.findAll());
+    public ResponseEntity<List<RestaurantResponseDTO>> findAllWithMeals() {
+        return ResponseEntity.ok(restaurantService.findAllWithMeals());
     }
 
 
     @PostMapping
     public ResponseEntity<RestaurantResponseDTO> save(@Valid @RequestBody RestaurantSaveDTO restaurant){
-        return new ResponseEntity<RestaurantResponseDTO>(restaurantService.save(restaurant), HttpStatus.CREATED);
+        return new ResponseEntity<RestaurantResponseDTO>(restaurantService.upsert(restaurant), HttpStatus.CREATED);
     }
 
 }

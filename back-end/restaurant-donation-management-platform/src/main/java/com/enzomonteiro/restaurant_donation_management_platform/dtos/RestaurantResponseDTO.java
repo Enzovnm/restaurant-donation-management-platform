@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import java.util.Set;
+
 public record RestaurantResponseDTO(
 
         Long id,
@@ -14,5 +16,7 @@ public record RestaurantResponseDTO(
 
         String cnpj,
 
-        String picture
+        String picture,
+
+        Set<MealResponseDTO> meals
 ) {}

@@ -9,8 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface MealMapper {
 
-    MealMapper mealMapper = Mappers.getMapper(MealMapper.class);
-
     MealResponseDTO mealToDto(Meal meal);
 
     Meal mealSaveDtoToMeal(MealSaveDTO mealSaveDTO);

@@ -7,10 +7,8 @@ import com.enzomonteiro.restaurant_donation_management_platform.entities.Restaur
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = MealMapper.class)
 public interface RestaurantMapper {
-
-    RestaurantMapper restaurantMapper = Mappers.getMapper(RestaurantMapper.class);
 
     RestaurantResponseDTO restaurantToDto(Restaurant restaurant);
 
