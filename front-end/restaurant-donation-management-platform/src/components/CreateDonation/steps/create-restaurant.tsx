@@ -107,6 +107,7 @@ export const CreateRestaurant = () => {
             placeholder="Digite a URL"
             {...register("picture")}
           />
+          {errors && <p className="text-red-500">{errors.picture?.message}</p>}
         </div>
 
         <button className="bg-[#e94911] w-full text-white  px-8 py-4 rounded-full mt-8 cursor-pointer">

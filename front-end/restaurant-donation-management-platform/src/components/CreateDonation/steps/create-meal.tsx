@@ -31,7 +31,7 @@ export const CreateMeal = () => {
 
   const setData = useDonationStore((state) => state.setData);
 
-  const [error, setError] = useState<{ message?: string }>({});
+  const [apiError, setApiError] = useState<{ message?: string }>({});
 
   const navigate = useNavigate();
 
@@ -56,8 +56,7 @@ export const CreateMeal = () => {
       const restaurantData = await restaurantResponse.json();
 
       if (!restaurantResponse.ok) {
-        setError(restaurantData);
-        console.log(error);
+        setApiError(restaurantData);
         return;
       }
 
@@ -67,13 +66,21 @@ export const CreateMeal = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          restaurantId: restaurantData.id,
+          restaurant_id: restaurantData.id,
           name: data.mealName,
           description: data.mealDescription,
         }),
       });
 
-      console.log(mealResponse);
+      const mealData = await mealResponse.json();
+
+      if (!mealResponse.ok) {
+        setApiError(mealData);
+        return;
+      }
+
+      navigate("/");
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }
@@ -89,7 +96,9 @@ export const CreateMeal = () => {
       <div>
         <h1 className="text-xl text-center">Descreva a marmita de doação!</h1>
       </div>
-      {error.message && <p className="mt-4 text-red-500">{error.message}</p>}
+      {apiError.message && (
+        <p className="mt-4 text-red-500">{apiError.message}</p>
+      )}
       <form className="mt-8" onSubmit={handleSubmit(handleForm)}>
         <div>
           <label className={`${errors.mealName ? "text-red-500" : ""}`}>

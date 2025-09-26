@@ -7,6 +7,7 @@ import { Home } from "./components/Home/Home";
 import { CreateDonation } from "./components/CreateDonation";
 import { CreateRestaurant } from "./components/CreateDonation/steps/create-restaurant";
 import { CreateMeal } from "./components/CreateDonation/steps/create-meal";
+import { LatestDonations } from "./components/LatestDonations/LatestDonations";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="meal" element={<CreateMeal />} />
           </Route>
         </Route>
+        <Route path="latest-donations" element={<LatestDonations />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
