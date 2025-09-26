@@ -5,7 +5,7 @@ A minimalist platform designed to manage restaurant donations.
 <img width="1912" height="1102" alt="Image" src="https://github.com/user-attachments/assets/c7650b8e-4c7f-4076-a4e4-09f1290da83d" />
 
 ## Documentation
-[Documentation](Document.pdf)
+[Documentation](Documentation.pdf)
 
 ## Technologies Used
 
