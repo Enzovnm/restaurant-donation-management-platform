@@ -44,6 +44,6 @@ npm run dev
 
 ### Back-end
 ```bash
-cd back-end/restaurant-donation-management-platform
+cd restaurant-donation-management-platform/back-end/restaurant-donation-management-platform
 docker compose up -d
 ```
